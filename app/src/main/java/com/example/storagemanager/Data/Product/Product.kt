@@ -1,9 +1,9 @@
-package com.example.storagemanager.Data
+package com.example.storagemanager.Data.Product
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import java.util.Date
 
 @Entity(tableName = "products_data_table")
 data class Product(
@@ -12,6 +12,7 @@ data class Product(
     @ColumnInfo("product_id")
     val id: Int = 0,
 
+    //@ForeignKey
     @ColumnInfo("product_category")
     val category: String,
 

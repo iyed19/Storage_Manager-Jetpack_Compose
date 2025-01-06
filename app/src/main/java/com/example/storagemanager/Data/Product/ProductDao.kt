@@ -1,4 +1,4 @@
-package com.example.storagemanager.Data
+package com.example.storagemanager.Data.Product
 
 import androidx.room.Dao
 import androidx.room.Delete

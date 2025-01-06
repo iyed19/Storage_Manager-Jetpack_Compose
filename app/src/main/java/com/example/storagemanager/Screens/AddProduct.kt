@@ -9,17 +9,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.storagemanager.Data.ProductViewModel
+import com.example.storagemanager.Components.ProductNavBar
+import com.example.storagemanager.Data.Category.CategoryViewModel
+import com.example.storagemanager.Data.Product.ProductViewModel
 
 @Composable
 fun AddProductScreen(
     navController: NavHostController,
     modifier: Modifier = Modifier,
-    viewModel: ProductViewModel
+    prdViewModel: ProductViewModel,
+    ctgViewModel: CategoryViewModel
 ) {
     Column(
         modifier = Modifier
     ) {
+        ProductNavBar(navController)
+
         Row(
             modifier = Modifier
                 .padding(top = 50.dp)
