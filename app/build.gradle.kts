@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.foundation.android)
     val room_version = "2.6.1"
     val lifecycle_version = "2.8.7"
     val compose_runtime_version = "1.7.6"
@@ -65,7 +66,8 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:$nav_version")
 
 
-    implementation ("org.mindrot:jbcrypt:0.4")
+    implementation("org.mindrot:jbcrypt:0.4")
+    implementation("io.coil-kt.coil3:coil-compose:3.0.4")
 
 
     implementation(libs.androidx.core.ktx)

@@ -49,6 +49,12 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
     }
 
 
+//    fun showCategories(){
+//        viewModelScope.launch(Dispatchers.IO) {
+//            categoryDao.getAllCategories()
+//        }
+//    }
+
     fun clearFields(){
         inputCategoryName = ""
     }

@@ -22,10 +22,10 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     var inputPrdTitle by mutableStateOf("")
         private set
 
-    var inputPrdPrice by mutableStateOf(0.0f)
+    var inputPrdPrice by mutableStateOf("")
         private set
 
-    var inputPrdQuantity by mutableStateOf(0)
+    var inputPrdQuantity by mutableStateOf("")
         private set
 
     var ListofProducts = mutableStateListOf<Product>()
@@ -43,37 +43,37 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     }
 
 
-    fun onPrdCategoryChange(newTitle: String) {
-        inputPrdCategory = newTitle
+    fun onPrdCategoryChange(newCategory: String) {
+        inputPrdCategory = newCategory
     }
 
     fun onPrdTitleChange(newTitle: String) {
         inputPrdTitle = newTitle
     }
 
-    fun onPrdPriceChange(newPrice: Float) {
+    fun onPrdPriceChange(newPrice: String) {
         inputPrdPrice = newPrice
     }
 
-    fun onPrdQuantityChange(newQuantity: Int) {
+    fun onPrdQuantityChange(newQuantity: String) {
         inputPrdQuantity = newQuantity
     }
 
-    fun selectProduct(product: Product) {
-        selectedProduct = product
-        inputPrdCategory = product.category
-        inputPrdTitle = product.title
-        inputPrdPrice = product.price
-        inputPrdQuantity = product.quantity
-    }
+//    fun selectProduct(product: Product) {
+//        selectedProduct = product
+//        inputPrdCategory = product.category
+//        inputPrdTitle = product.title
+//        inputPrdPrice = product.price.toString()
+//        inputPrdQuantity = product.quantity.toString()
+//    }
 
 
-    fun addUser() {
+    fun addProduct() {
         val product = Product(
             category = inputPrdCategory,
             title = inputPrdTitle,
-            price = inputPrdPrice,
-            quantity = inputPrdQuantity
+            price = inputPrdPrice.toFloatOrNull() ?: 0.0f,
+            quantity = inputPrdQuantity.toIntOrNull() ?: 0
         )
         viewModelScope.launch(Dispatchers.IO) {
             productDao.insertProduct(product)
@@ -85,7 +85,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     }
 
 
-    fun deleteUser() {
+    fun deleteProduct() {
         selectedProduct?.let { product ->
             viewModelScope.launch(Dispatchers.IO) {
                 productDao.deleteProduct(product)
@@ -101,8 +101,8 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     fun clearFields(){
         inputPrdCategory = ""
         inputPrdTitle = ""
-        inputPrdPrice = 0.0f
-        inputPrdQuantity = 0
+        inputPrdPrice = ""
+        inputPrdQuantity = ""
     }
 
 }
