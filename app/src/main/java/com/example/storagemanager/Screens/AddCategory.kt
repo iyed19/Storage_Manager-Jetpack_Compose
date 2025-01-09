@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
@@ -63,7 +64,9 @@ fun AddCategoryScreen(
                 OutlinedTextField(
                     value = inputCategory,
                     onValueChange = { text ->
-                        ctgViewModel.onCategoryNameChange(text)
+                        val capitalizedText = text.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+                        ctgViewModel.onCategoryNameChange(capitalizedText)
+                        //ctgViewModel.onCategoryNameChange(text)
                     },
                     label = {
                         Text(
@@ -76,7 +79,9 @@ fun AddCategoryScreen(
             }
 
             Row(
-
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp)
             ) {
                 Button(
                     onClick = {

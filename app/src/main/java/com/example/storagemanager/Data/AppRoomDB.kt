@@ -9,7 +9,7 @@ import com.example.storagemanager.Data.Category.CategoryDao
 import com.example.storagemanager.Data.Product.Product
 import com.example.storagemanager.Data.Product.ProductDao
 
-@Database(entities = [Product::class, Category::class], version = 1)
+@Database(entities = [Product::class, Category::class], version = 2)
 abstract class AppRoomDB: RoomDatabase() {
     abstract fun productDao(): ProductDao
     abstract fun categoryDao(): CategoryDao
@@ -24,7 +24,9 @@ abstract class AppRoomDB: RoomDatabase() {
                     context.applicationContext,
                     AppRoomDB::class.java,
                     "app_database"
-                ).fallbackToDestructiveMigration().build()
+                ).fallbackToDestructiveMigration()
+                    //.addMigrations(MIGRATION_2_3).build()
+                    .build()
                 INSTANCE = instance
                 instance
             }

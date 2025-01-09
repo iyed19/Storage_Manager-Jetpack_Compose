@@ -1,6 +1,7 @@
 package com.example.storagemanager.Data.Product
 
 import android.app.Application
+import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -16,7 +17,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
     private val productDao = database.productDao()
 
-    var inputPrdCategory by mutableStateOf("")
+    var inputPrdCategory by mutableStateOf(0)
         private set
 
     var inputPrdTitle by mutableStateOf("")
@@ -43,8 +44,8 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     }
 
 
-    fun onPrdCategoryChange(newCategory: String) {
-        inputPrdCategory = newCategory
+    fun onPrdCategoryChange(newCategoryId: Int) {
+        inputPrdCategory = newCategoryId
     }
 
     fun onPrdTitleChange(newTitle: String) {
@@ -69,17 +70,30 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
 
     fun addProduct() {
+        val price = inputPrdPrice.toFloatOrNull()
+        val quantity = inputPrdQuantity.toIntOrNull()
+
+        if (price == null || quantity == null || inputPrdCategory == 0) {
+            Log.e("mytag", "error: Invalid input (price, quantity, or category)")
+            return
+        }
         val product = Product(
             category = inputPrdCategory,
             title = inputPrdTitle,
-            price = inputPrdPrice.toFloatOrNull() ?: 0.0f,
-            quantity = inputPrdQuantity.toIntOrNull() ?: 0
+//            price = inputPrdPrice.toFloatOrNull() ?: 0.0f,
+//            quantity = inputPrdQuantity.toIntOrNull() ?: 0
+            price = price,
+            quantity = quantity
         )
         viewModelScope.launch(Dispatchers.IO) {
-            productDao.insertProduct(product)
-            val updatedProducts = productDao.getAllProducts()
-            ListofProducts.clear()
-            ListofProducts.addAll(updatedProducts)
+            try {
+                productDao.insertProduct(product)
+                val updatedProducts = productDao.getAllProducts()
+                ListofProducts.clear()
+                ListofProducts.addAll(updatedProducts)
+            } catch (e: Exception) {
+                Log.e("mytag", "Error inserting product", e)
+            }
         }
         clearFields()
     }
@@ -99,7 +113,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
 
     fun clearFields(){
-        inputPrdCategory = ""
+        inputPrdCategory = 0
         inputPrdTitle = ""
         inputPrdPrice = ""
         inputPrdQuantity = ""

@@ -26,7 +26,8 @@ data class Product(
     val id: Int = 0,
 
     @ColumnInfo("product_category") // Foreign key column
-    val category: String,
+    //val category: String,
+    val category: Int,
 
     @ColumnInfo("product_title")
     val title: String,

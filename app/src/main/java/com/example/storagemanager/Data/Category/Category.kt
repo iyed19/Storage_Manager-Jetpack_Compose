@@ -11,6 +11,7 @@ data class Category(
     @ColumnInfo("category_id")
     val id: Int = 0,
 
+
     @ColumnInfo("category_name")
     val name: String,
 )
