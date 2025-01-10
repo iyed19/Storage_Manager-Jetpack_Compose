@@ -60,13 +60,13 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         inputPrdQuantity = newQuantity
     }
 
-//    fun selectProduct(product: Product) {
-//        selectedProduct = product
-//        inputPrdCategory = product.category
-//        inputPrdTitle = product.title
-//        inputPrdPrice = product.price.toString()
-//        inputPrdQuantity = product.quantity.toString()
-//    }
+    fun selectProduct(product: Product) {
+        selectedProduct = product
+        //inputPrdCategory = product.category
+        inputPrdTitle = product.title
+        inputPrdPrice = product.price.toString()
+        inputPrdQuantity = product.quantity.toString()
+    }
 
 
     fun addProduct() {

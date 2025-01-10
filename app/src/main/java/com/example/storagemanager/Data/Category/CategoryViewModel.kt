@@ -49,11 +49,9 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
     }
 
 
-//    fun showCategories(){
-//        viewModelScope.launch(Dispatchers.IO) {
-//            categoryDao.getAllCategories()
-//        }
-//    }
+    fun getCategoryNameById(categoryId: Int): String {
+        return ListofCategories.find { it.id == categoryId }?.name ?: "Unknown"
+    }
 
     fun clearFields(){
         inputCategoryName = ""
